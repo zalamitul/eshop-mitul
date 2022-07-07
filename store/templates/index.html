@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+
+{% block content%}
+{% load cart%}
+<!-- filter -->
+<div class="container-fluid mt-3 position-sticky">
+  <div class="row">
+    <div class="col-lg-3 posi">
+      <ul>
+        <li><a class="dropdown-item active" href="?category=all" aria-current="true">All</a></li>
+        {%for category in categories%}
+        <li style="border:1px solid red ;"><a class="dropdown-item"
+            href="?category={{category.name}}">{{category.name}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col lg-8 d-flex flex-wrap">
+      {%for product in products%}
+      <div class="card m-2" style="width: 18rem; " id="{{product.id}}">
+        <img src="{{product.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> <small>category name: </small> {{product.category.name}}</h5>
+          <h5 class="card-title"> <small> product name:</small> {{product.name}}</h5>
+          <h5 class="card-title"> <small> price:</small> {{product.price}}</h5>
+          <p class="card-text"> <small> description: </small>{{product.description}}</p>
+          <p>
+          <form action="#{{product.id}}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="productId" value="{{product.id}}">
+            {% csrf_token%}
+            {%if request.session.cart%}
+            {% if product|is_in_cart:request.session.cart %}
+            <div style="display: flex; justify-content: space-between;">
+              <span>
+                <form action="" method="POST">
+                  {% csrf_token%}
+                  <input type="hidden" name="productId" value="{{product.id}}">
+                  <input type="hidden" name="remove" value="true">
+                  <button type=" submit">-</button>
+                </form>
+              </span>
+              <span>{{ product|quantity:request.session.cart }}</span>
+              <span>
+                <form action="" method="POST">
+                  {% csrf_token%}
+                  <input type="hidden" name="productId" value="{{product.id}}">
+     
+                  <button type=" submit">+</button>
+                </form>
+              </span>
+            </div>
+            {%else%}
+            <button type="submit" class="btn btn-primary"> Add to cart</button>
+            {% endif %}
+            {%else%}
+            <button type="submit" class="btn btn-primary"> Add to cart</button>
+            {% endif %}
+          </form>
+
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'base.html'%}
+
+{% block content%}
+{% load cart%}
+<div class="container-sm py-5 mt-3 mb-5" style="border: 1px solid red;">
+  <div class="header">
+    <h1>
+      Your Cart
+    </h1>
+    <hr>
+    <div class="index">
+      <hr>
+      <ul class="ms-5 me-5"
+        style="text-align: left;display: flex; justify-content: space-around; text-transform: capitalize; font-weight: 2000;">
+        <li>Sno.</li>
+        <li>image</li>
+        <li style="width:90PX;">Product</li>
+        <li>Date</li>
+        <li>price</li>
+        <li>Quantity</li>
+        <li>Total</li>
+        <li>Status</li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+  <div class="col lg-12 d-flex flex-column">
+    {%for product in products%}
+    <div class="card" style="">
+      <ul class="ms-5 me-5" style="text-align: left;display: flex; justify-content: space-around; text-transform: capitalize; font-weight: 2000;">
+        <li>
+            {{product.id}}
+        </li>
+        <li>
+          <div class="" style="background-size:cover;">
+            <img width="60px" height="60px" src="{{product.image.url}}" style="background-size: inherit;" class="img-fluid rounded-start" alt="...">
+          </div>
+        </li>
+        <li>
+          <h5 class="card-title"> {{product.name}}</h5>
+        </li>
+        <li>
+          <p>{{product.date}}</p>
+          <script>
+            d= new Date()
+            document.getElementById('date').innerHTML=d.getDate()+"/"+d.getMonth()+"/"+d.getYear()
+          </script>
+        </li>
+        <li>
+          <h5 class="card-title">{{product.price}}</h5>
+        </li>
+        <li>
+          <span>{{ product|quantity:request.session.cart }}</span>
+        </li>
+        <li>
+          total price
+        </li>
+        <li>
+          status
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title"> <small>category name: </small> {{product.category.name}}</h5>
+          <h5 class="card-title"> <small> product name:</small> {{product.name}}</h5>
+          <h5 class="card-title"> <small> product price:</small> {{product.price}}</h5>
+          <p class="card-text"> <small> description: </small>{{product.description}}</p>
+        </div>
+        <div class="col-md-6" style="display: flex; justify-content: space-between;">
+          <span>
+            <form action="" method="POST">
+              {% csrf_token%}
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <input type="hidden" name="remove" value="true">
+              <button type=" submit">-</button>
+            </form>
+          </span>
+          <span>{{ product|quantity:request.session.cart }}</span>
+          <span>
+            <form action="" method="POST">
+              {% csrf_token%}
+              <input type="hidden" name="productId" value="{{product.id}}">
+
+              <button type=" submit">+</button>
+            </form>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+    <!-- <div class="card m-2" style="width: 18rem; " id="{{product.id}}">
+        <img src="{{product.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> <small>category name: </small> {{product.category.name}}</h5>
+          <h5 class="card-title"> <small> product name:</small> {{product.name}}</h5>
+          <p class="card-text"> <small> description: </small>{{product.description}}</p>
+          <p>
+          <form action="#{{product.id}}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="productId" value="{{product.id}}">
+            {% csrf_token%}
+            {%if request.session.cart%}
+            {% if product|is_in_cart:request.session.cart %}
+            <div style="display: flex; justify-content: space-between;">
+              <span>
+                <form action="" method="POST">
+                  {% csrf_token%}
+                  <input type="hidden" name="productId" value="{{product.id}}">
+                  <input type="hidden" name="remove" value="true">
+                  <button type=" submit">-</button>
+                </form>
+              </span>
+              <span>{{ product|quantity:request.session.cart }}</span>
+              <span>
+                <form action="" method="POST">
+                  {% csrf_token%}
+                  <input type="hidden" name="productId" value="{{product.id}}">
+     
+                  <button type=" submit">+</button>
+                </form>
+              </span>
+            </div>
+            {%else%}
+            <button type="submit" class="btn btn-primary"> Add to cart</button>
+            {% endif %}
+            {%else%}
+            <button type="submit" class="btn btn-primary"> Add to cart</button>
+            {% endif %}
+          </form>
+
+          </p>
+        </div>
+      </div> -->
+    {% endfor %}
+  </div>
+  <div style="text-align: right;">
+    <h2>
+      total:{{total}}
+    </h2>
+  </div>
+<!-- Button trigger modal -->
+<button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" {{value}}>
+  Check Out
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="check-out" method="post">
+          {%csrf_token%}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">address</label>
+            <input name="address" type="text" class="form-control" >
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">phone Number</label>
+            <input name="phone" type="number" class="form-control" >
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">submit</button>
+      </div> 
+    </form>
+    </div>
+  </div>
+</div>
+</div>
+{%endblock%}

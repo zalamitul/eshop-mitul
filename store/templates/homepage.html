@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <h1>ajkhgjsdfakjkdfhjkhahsdjkf</h1> -->
+
+{%for product in products%}
+<div class="card m-2" style="width: 18rem; ">
+  <img src="{{product.image.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">  <small>category name: </small> {{product.category.name}}</h5>
+    <h5 class="card-title"> <small> product name:</small> {{product.name}}</h5>
+    <p class="card-text"> <small> description: </small>{{product.description}}</p>
+    <button href="#" class="btn btn-primary">  Add to cart</button>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
