@@ -21,18 +21,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-shs=lp#$7jcbl*rtz0_$i6w-7o=cnr)cz7hw__!sgekd@4)z76'
+SECRET_KEY = 'anytihng-mitul-django'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com','eshop-mitul.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'whitenoise.runserver_nostatic',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'BASE_DIR/db.sqlite3',
     }
 }
 
@@ -132,6 +133,8 @@ MEDIA_URL="/a/"
 
 MEDIA_ROOT=BASE_DIR
 
+
+# os.path.join(BASE_DIR, 'static'),
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
