@@ -60,7 +60,6 @@
         </li>
       </ul>
     </div>
-
     <!-- <div class="card mb-3" >
     <div class="row g-0">
       <div class="col-md-4">
@@ -95,7 +94,6 @@
       </div>
     </div>
   </div> -->
-
     <!-- <div class="card m-2" style="width: 18rem; " id="{{product.id}}">
         <img src="{{product.image.url}}" class="card-img-top" alt="...">
         <div class="card-body">
@@ -139,7 +137,7 @@
           </p>
         </div>
       </div> -->
-    {% endfor %}
+   {% endfor %}
   </div>
   <div style="text-align: right;">
     <h2>
@@ -164,12 +162,12 @@
           {%csrf_token%}
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">address</label>
-            <input name="address" type="text" class="form-control" >
+            <input name="address" type="text" class="form-control" required>
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">phone Number</label>
-            <input name="phone" type="number" class="form-control" >
+            <input name="phone" type="number" class="form-control" required>
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
        

@@ -49,6 +49,11 @@
                 </form>
               </span>
             </div>
+            {%if product|quantity:request.session.cart%}
+          <span style="display:flex;justify-content:center">
+                          <a style="width:50%" href="/cart" class="btn btn-primary"> Buy Now</a>
+          </span>
+            {%endif%}
             {%else%}
             <button type="submit" class="btn btn-primary"> Add to cart</button>
             {% endif %}

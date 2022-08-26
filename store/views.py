@@ -12,11 +12,12 @@ def cart(req):
     categories = Category.get_all_categories()
     data={}
     data1 = []
+    print("dsada")
     try:
         arr = dict(req.session.get('cart'))
         for i in arr.keys():
             products= Product.objects.get(pk=int(i))
-        data1.append(products)
+            data1.append(products)
         total = 0
         for i in req.session.get('cart'):
             for j in data1:
@@ -25,13 +26,15 @@ def cart(req):
         data['products'] = data1
         data['total'] = total
         data['categories'] = categories
+        print("hhhh")
     except:
         arr=[]
         data['value']="disabled"
-    try:
-        data['customer'] = req.session['customer']
-    except:
-        data['customer'] = None
+        try:
+            data['customer'] = req.session['customer']
+        except:
+            data['customer'] = None
+    print(data['products'])
     return render(req,'cart.html',data)
 
 def logout(req):
@@ -81,6 +84,7 @@ def index(req):
         categories = Category.get_all_categories()
         products = Product.get_products('all')
         data = {}
+        # print(req.GET.get('categoriy'))
         data['products']=products
         # print(products)
         data['categories']=categories

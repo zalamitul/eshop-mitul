@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'anytihng-mitul-django'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com','eshop-mitul.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','.herokuapp.com','eshop-mitul.herokuapp.com']
 
 
 # Application definition
@@ -82,10 +82,18 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'BASE_DIR/db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="sqlite:///{}".format(
+#             os.path.join(BASE_DIR, 'db.sqlite3')
+#         )
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

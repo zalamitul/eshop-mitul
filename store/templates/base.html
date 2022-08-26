@@ -34,7 +34,7 @@
   <ul class="nav nav-pills" style="position: -webkit-sticky;position: sticky;top: 0; z-index: 2;background-color: azure;font-size: 18px;display:flex;justify-content: space-between;">
     <div style="float:left;display:flex;justify-content:center;">
       <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="/">Eshop</a>
+        <a class="nav-link" aria-current="page" href="https://eshop-mitul.herokuapp.com/">Eshop</a>
       </li>
         {%if request.session.customer%}
       <li class="nav-item">
@@ -46,37 +46,39 @@
    
       {%if request.path|comp2%}
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8000/cart">cart <span>{{request.session.cart|cartitems}}</span></a>
+        <a class="nav-link" href="/cart">cart <span>{{request.session.cart|cartitems}}</span></a>
       </li>
         {%endif%}
 
       {%if request.session.customer%}
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8000/logout">logout</a>
+        <a class="nav-link" href="/logout">logout</a>
       </li>
         {%endif%}
-      {%if request.path|comp or request.session.customer %}
+      {%if request.path|comp and request.session.customer|logined %}
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:8000/signup">sign up</a>
+          <a class="nav-link" href="/signup">sign up</a>
         </li>
       
         {%endif%}
       </li>
-      {%if request.path|comp1 or request.session.customer%}
+
+
+      {%if request.path|comp1 and request.session.customer|logined%}
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:8000/login">login</a>
+      <a class="nav-link" href="/login">login</a>
       </li>
         {%endif%}
 
         {%if request.path|comp3%}
         <li>
-          <a class="nav-link" href="http://localhost:8000/order">Order</a>
+          <a class="nav-link" href="/order">Order</a>
         </li>
       
         {%endif%}
 
       <li class="nav-item dropdown">
-        <a class="nav-link" href="http://localhost:8000/profile">profile</a>
+        <a class="nav-link" href="/profile">profile</a>
       </li>
 
     </div>

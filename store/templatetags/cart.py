@@ -26,11 +26,25 @@ def comp2(path):
         return False
     return True
 
+
+@register.filter(name='logined')
+def logined(path):
+    if path:
+        return 0
+    return 1
+
+@register.filter(name='Needpath')
+def logined(request):
+    # print(request.path)
+    print(request.GET.get('category'))
+    if request=="/":
+        return 0
+    return request.GET.get('category')
+
 @register.filter(name='comp1')
 def comp1(path):
     if path == '/login/':
         return False
-    return True
 
 @register.filter(name='cartitems')
 def cartitems(data):
