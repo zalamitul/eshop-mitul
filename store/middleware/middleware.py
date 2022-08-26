@@ -9,6 +9,6 @@ def auth_middleware(gt_response):
         returnUrl=request.META['PATH_INFO']
         print(request.META['PATH_INFO'])
         if not request.session.get('customerid'):
-            return redirect(f'http://localhost:8000/login?returnUrl={returnUrl}')
+            return redirect(f'/login?returnUrl={returnUrl}')
         return gt_response(request)
     return middleware
