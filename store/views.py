@@ -168,8 +168,10 @@ def signup(req):
         elif len(data.phone)<10 :
             error_msg='enter correct phoone number'
         else:
-
-            flag = Customer.check_email(data.email)
+            try:
+                flag = Customer.check_email(data.email)
+            except:
+                flag=0
             if flag:
                 error_msg="email alredy exsist"
             else:
